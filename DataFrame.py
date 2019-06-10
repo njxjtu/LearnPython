@@ -1,3 +1,5 @@
+#Index
+
 purchase_1 = pd.Series({'Name': 'Chris',
                         'Item Purchased': 'Dog Food',
                         'Cost': 22.50})
@@ -15,3 +17,6 @@ df = df.set_index([df.index, 'Name'])
 df.index.names = ['Location', 'Name']
 df = df.append(pd.Series(data={'Cost': 3.00, 'Item Purchased': 'Kitty Food'}, name=('Store 2', 'Kevyn')))
 df
+
+
+#Missing values

@@ -39,3 +39,10 @@ answer_zero()
 def answer_two():
     return (df['Gold']-df['Gold.1']).abs().idxmax()
 answer_two()
+
+# Which country has the biggest difference between their summer gold medal counts and winter gold medal counts relative to their total gold medal count? (Summer Gold−Winter Gold)/Total Gold Only include countries that have won at least 1 gold in both summer and winter.
+# This function should return a single string value.
+def answer_three():
+    df1 = df[(df['Gold']>0) & (df['Gold.1']>0)]
+    return (df1['Gold']-df1['Gold.1']).abs().div(df1['Gold']+df1['Gold.1']+df1['Gold.2']).idxmax()
+answer_three()

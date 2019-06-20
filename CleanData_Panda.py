@@ -46,3 +46,8 @@ def answer_three():
     df1 = df[(df['Gold']>0) & (df['Gold.1']>0)]
     return (df1['Gold']-df1['Gold.1']).abs().div(df1['Gold']+df1['Gold.1']+df1['Gold.2']).idxmax()
 answer_three()
+
+'''Write a function that creates a Series called "Points" which is a weighted value where each gold medal (Gold.2) counts for 3 points, silver medals (Silver.2) for 2 points, and bronze medals (Bronze.2) for 1 point. The function should return only the column (a Series object) which you created, with the country names as indices.
+
+This function should return a Series named Points of length 146
+'''

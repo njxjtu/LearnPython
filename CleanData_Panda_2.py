@@ -16,3 +16,10 @@ census_df.head()
 def answer_five():
     return census_df.groupby(census_df['STNAME']).count().COUNTY.idxmax()
 answer_five()
+
+# Question 6
+# Only looking at the three most populous counties for each state, what are the three most populous states (in order of highest population to lowest population)? Use CENSUS2010POP.
+# This function should return a list of string values.
+
+def answer_six():
+    return "YOUR ANSWER HERE"

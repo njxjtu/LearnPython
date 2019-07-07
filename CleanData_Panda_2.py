@@ -12,3 +12,7 @@ The census dataset (census.csv) should be loaded as census_df. Answer questions 
 import panda as pd
 census_df = pd.read_csv('census.csv')
 census_df.head()
+
+def answer_five():
+    return census_df.groupby(census_df['STNAME']).count().COUNTY.idxmax()
+answer_five()

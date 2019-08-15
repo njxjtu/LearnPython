@@ -52,5 +52,5 @@ answer_seven()
 
 def answer_eight():
     df3 = census_df.loc[census_df['REGION'].isin([1,2]) & census_df['CTYNAME'].str.startswith('Washington', na=False) & (census_df['POPESTIMATE2015']>census_df['POPESTIMATE2014'])]
-    return df3
+    return df3[['STNAME', 'CTYNAME'] ]
 answer_eight()

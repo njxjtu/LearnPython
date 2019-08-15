@@ -39,7 +39,11 @@ answer_six()
 #This function should return a single string value.
 
 def answer_seven():
-    return "YOUR ANSWER HERE"
+    census_df['maxpop'] = census_df[['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].max(axis=1)
+    census_df['minpop'] = census_df[['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].min(axis=1)
+    census_df['chgpop'] = census_df['maxpop']-census_df['minpop']
+    return census_df.sort_values(by='chgpop',ascending=False).head(1)['CTYNAME']
+answer_seven()
 
 #Question 8
 #In this datafile, the United States is broken up into four regions using the "REGION" column.

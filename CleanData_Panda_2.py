@@ -49,3 +49,8 @@ answer_seven()
 #In this datafile, the United States is broken up into four regions using the "REGION" column.
 #Create a query that finds the counties that belong to regions 1 or 2, whose name starts with 'Washington', and whose POPESTIMATE2015 was greater than their POPESTIMATE 2014.
 #This function should return a 5x2 DataFrame with the columns = ['STNAME', 'CTYNAME'] and the same index ID as the census_df (sorted ascending by index).
+
+def answer_eight():
+    df3 = census_df.loc[census_df['REGION'].isin([1,2]) & census_df['CTYNAME'].str.startswith('Washington', na=False) & (census_df['POPESTIMATE2015']>census_df['POPESTIMATE2014'])]
+    return df3
+answer_eight()

@@ -31,3 +31,17 @@ answer_six()
 # 4	    California	50167874
 # 43	Texas	31606159
 # 32	New York	24113524
+
+
+#Question 7
+#Which county has had the largest absolute change in population within the period 2010-2015? (Hint: population values are stored in columns POPESTIMATE2010 through POPESTIMATE2015, you need to consider all six columns.)
+#e.g. If County Population in the 5 year period is 100, 120, 80, 105, 100, 130, then its largest change in the period would be |130-80| = 50.
+#This function should return a single string value.
+
+def answer_seven():
+    return "YOUR ANSWER HERE"
+
+#Question 8
+#In this datafile, the United States is broken up into four regions using the "REGION" column.
+#Create a query that finds the counties that belong to regions 1 or 2, whose name starts with 'Washington', and whose POPESTIMATE2015 was greater than their POPESTIMATE 2014.
+#This function should return a 5x2 DataFrame with the columns = ['STNAME', 'CTYNAME'] and the same index ID as the census_df (sorted ascending by index).

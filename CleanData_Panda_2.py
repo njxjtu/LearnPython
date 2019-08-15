@@ -25,3 +25,9 @@ def answer_six():
     df2 = census_df.sort_values(by=['STNAME', 'CENSUS2010POP'], ascending=False).groupby(census_df['STNAME']).head(3).groupby(census_df['STNAME'])['CENSUS2010POP'].sum().reset_index()
     return df2.sort_values(by='CENSUS2010POP', ascending=False).head(3)
 answer_six()
+
+#  Answer:
+#       STNAME	CENSUS2010POP
+# 4	    California	50167874
+# 43	Texas	31606159
+# 32	New York	24113524

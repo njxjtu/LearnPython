@@ -22,4 +22,6 @@ answer_five()
 # This function should return a list of string values.
 
 def answer_six():
-    return "YOUR ANSWER HERE"
+    df2 = census_df.sort_values(by=['STNAME', 'CENSUS2010POP'], ascending=False).groupby(census_df['STNAME']).head(3).groupby(census_df['STNAME'])['CENSUS2010POP'].sum().reset_index()
+    return df2.sort_values(by='CENSUS2010POP', ascending=False).head(3)
+answer_six()

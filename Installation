@@ -1,0 +1,2 @@
+# Install pandas on Windows cmd
+py -m pip install panda

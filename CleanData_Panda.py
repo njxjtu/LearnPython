@@ -1,3 +1,4 @@
+# Install pandas: py -m pip install panda
 # get data from csv
 import pandas as pd
 

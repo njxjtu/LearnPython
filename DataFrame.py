@@ -20,3 +20,6 @@ df
 
 
 #Missing values
+
+
+# astype - Cast a pandas object to a specified dtype dtype

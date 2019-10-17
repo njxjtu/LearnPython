@@ -46,4 +46,16 @@ This function should return a DataFrame with 20 columns and 15 entries.
 '''
 
 def answer_one():
-    return "ANSWER"
+    import pandas as pd
+    import numpy as np
+
+    energy = pd.read_excel('Energy Indicators.xls', header=17,skipfooter=38,usecols=[1,2,3,4,5],na_values='...')
+    energy = energy.iloc[:, 1:]
+    energy.columns = ['Country', 'Energy Supply', 'Energy Supply per Capita', '% Renewable']
+    energy['Energy Supply'] *= 1000000
+    energy.replace('Republic of Korea','South Korea', inplace=True)
+    energy.replace('United States of America','United States', inplace=True)
+    energy.replace('United Kingdom of Great Britain and Northern Ireland','United Kingdom', inplace=True)
+    energy.replace('China, Hong Kong Special Administrative Region', 'Hong Kong', inplace=True)
+    print(energy[:165])
+    return energy

@@ -46,9 +46,6 @@ This function should return a DataFrame with 20 columns and 15 entries.
 '''
 
 def answer_one():
-    import pandas as pd
-    import numpy as np
-
     energy = pd.read_excel('Energy Indicators.xls', header=17,skipfooter=38,usecols=[1,2,3,4,5],na_values='...')
     energy = energy.iloc[:, 1:]
     energy.columns = ['Country', 'Energy Supply', 'Energy Supply per Capita', '% Renewable']
@@ -57,5 +54,18 @@ def answer_one():
     energy.replace('United States of America','United States', inplace=True)
     energy.replace('United Kingdom of Great Britain and Northern Ireland','United Kingdom', inplace=True)
     energy.replace('China, Hong Kong Special Administrative Region', 'Hong Kong', inplace=True)
-    print(energy[:165])
+    
+    df_obj = energy.select_dtypes(['object'])
+    energy.Country = energy.Country.str.replace("\(.*\)","").str.replace('[0-9]','')
+    
+    ##
+    # GDP = pd.read_csv('world_bank.csv', index_col=0, skiprows=4)
+    GDP = pd.read_csv('world_bank.csv', skiprows=4)
+    GDP.replace('Korea, Rep.','South Korea', inplace=True)
+    GDP.replace('Iran, Islamic Rep.','Iran', inplace=True)
+    GDP.replace('Hong Kong SAR, China','Hong Kong', inplace=True)
+    print(GDP)
+    #
+    ScimEn = pd.read_excel('scimagojr.xlsx')
+    print(ScimEn)
     return energy

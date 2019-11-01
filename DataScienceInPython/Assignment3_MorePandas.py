@@ -25,11 +25,8 @@ Make sure to skip the header, and rename the following list of countries:
 "Hong Kong SAR, China": "Hong Kong"
 
 Finally, load the Sciamgo Journal and Country Rank data for Energy Engineering and Power Technology from the file scimagojr-3.xlsx, which ranks countries based on their journal contributions in the aforementioned area. Call this DataFrame ScimEn.
-
 Join the three datasets: GDP, Energy, and ScimEn into a new dataset (using the intersection of country names). Use only the last 10 years (2006-2015) of GDP data and only the top 15 countries by Scimagojr 'Rank' (Rank 1 through 15).
-
 The index of this DataFrame should be the name of the country, and the columns should be ['Rank', 'Documents', 'Citable documents', 'Citations', 'Self-citations', 'Citations per document', 'H index', 'Energy Supply', 'Energy Supply per Capita', '% Renewable', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015'].
-
 This function should return a DataFrame with 20 columns and 15 entries.
 
 '''
@@ -70,3 +67,4 @@ print("-------------- Final Result: --------------")
 print(final_df)
 print("-------------- Test Value: --------------")
 print(final_df.loc[final_df['Country'] == 'China'])
+

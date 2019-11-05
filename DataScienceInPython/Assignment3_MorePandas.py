@@ -79,3 +79,7 @@ The previous question joined three datasets then reduced this to just the top 15
 This function should return a single number.
 Everything but this!
 '''
+final_sum = ScimEn2.merge(GDP,left_on='Country', right_on='Country')
+final_sum = final_sum.merge(energy, left_on='Country', right_on='Country')
+print(len(final_sum)-len(final_df2))
+

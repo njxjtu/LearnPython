@@ -54,17 +54,22 @@ GDP.replace('Korea, Rep.','South Korea', inplace=True)
 GDP.replace('Iran, Islamic Rep.','Iran', inplace=True)
 GDP.replace('Hong Kong SAR, China','Hong Kong', inplace=True)
 print("-------------- GDP --------------")
-GDP = GDP.iloc[:,[0,1,2,3,50,51,52,53,54,55,56,57,58,59]]
+GDP = GDP.iloc[:,[0,50,51,52,53,54,55,56,57,58,59]]
+GDP.rename(columns={'Country Name':'Country'}, inplace= True)
+GDP.set_index('Country')
 print(GDP)
 #
 ScimEn = pd.read_excel('scimagojr.xlsx')
 print("-------------- ScimEn --------------")
 ScimEn = ScimEn.iloc[0:15,:]
+ScimEn.set_index('Country')
 print(ScimEn)
 
-final_df = energy.merge(GDP,left_on='Country', right_on='Country Name').merge(ScimEn, on='Country')
-print("-------------- Final Result: --------------")
-print(final_df)
+final_df = ScimEn.merge(GDP,left_on='Country', right_on='Country', how='left')
+final_df = final_df.merge(energy, left_on='Country', right_on='Country', how='left')
+final_df2 = final_df.set_index('Country')
+print(final_df2)
+print(final_df2.columns)
 print("-------------- Test Value: --------------")
 print(final_df.loc[final_df['Country'] == 'China'])
 

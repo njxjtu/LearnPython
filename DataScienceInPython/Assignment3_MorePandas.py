@@ -118,3 +118,17 @@ Question 5 (6.6%)
 What is the mean Energy Supply per Capita?
 This function should return a single number.
 '''
+print("Question 5")
+print(final_df2['Energy Supply per Capita'].mean())
+print(final_df2.describe())
+'''
+Question 6 (6.6%)
+What country has the maximum % Renewable and what is the percentage?
+This function should return a tuple with the name of the country and the percentage.
+'''
+print("Question 6")
+print("=====final_df2======")
+print(final_df2)
+tempdf = final_df2.loc[final_df2['% Renewable'].idxmax()]
+number = tempdf.loc[[final_df2['% Renewable'].idxmax()],['% Renewable']]
+print([final_df2['% Renewable'].idxmax(),number])

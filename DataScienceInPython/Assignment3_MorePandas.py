@@ -129,6 +129,6 @@ This function should return a tuple with the name of the country and the percent
 print("Question 6")
 print("=====final_df2======")
 print(final_df2)
+maxCountry = final_df2['% Renewable'].idxmax()
 tempdf = final_df2.loc[final_df2['% Renewable'].idxmax()]
-number = tempdf.loc[[final_df2['% Renewable'].idxmax()],['% Renewable']]
-print([final_df2['% Renewable'].idxmax(),number])
+print([maxCountry,tempdf.loc['% Renewable']])

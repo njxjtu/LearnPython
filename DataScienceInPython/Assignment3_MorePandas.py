@@ -148,6 +148,7 @@ Question 8 (6.6%)
 Create a column that estimates the population using Energy Supply and Energy Supply per capita. What is the third most populous country according to this estimate?
 This function should return a single string value.
 '''
+print("Question 8")
 final_df2['estimatedPop'] = final_df2['Energy Supply']/final_df2['Energy Supply per Capita']
 final_df2_sorted_est = final_df2.sort_values('estimatedPop', ascending=False)
 print("final_df2_sorted_est")
@@ -162,3 +163,6 @@ the energy supply per capita? Use the .corr() method, (Pearson's correlation).
 This function should return a single number.
 (Optional: Use the built-in function plot9() to visualize the relationship between Energy Supply per Capita vs. Citable docs per Capita)
 '''
+print("Question 9")
+final_df2['estimatedCDPP'] = final_df2['Citable documents']/final_df2['estimatedPop']
+print(final_df2)

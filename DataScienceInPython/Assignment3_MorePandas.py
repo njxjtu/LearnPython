@@ -198,4 +198,22 @@ ContinentDict  = {'China':'Asia',
                   'Brazil':'South America'}
 This function should return a DataFrame with index named Continent ['Asia', 'Australia', 'Europe', 'North America', 'South America'] and columns ['size', 'sum', 'mean', 'std']
 '''
-continentDF = 
+ContinentDict  = {'China':'Asia', 
+                  'United States':'North America', 
+                  'Japan':'Asia', 
+                  'United Kingdom':'Europe', 
+                  'Russian Federation':'Europe', 
+                  'Canada':'North America', 
+                  'Germany':'Europe', 
+                  'India':'Asia',
+                  'France':'Europe', 
+                  'South Korea':'Asia', 
+                  'Italy':'Europe', 
+                  'Spain':'Europe', 
+                  'Iran':'Asia',
+                  'Australia':'Australia', 
+                  'Brazil':'South America'}
+print(ContinentDict)
+data = {'Continent':['Asia', 'Australia', 'Europe', 'North America', 'South America'], 'size':[5, 1, 6, 2, 1]}
+ContinentDF = pd.DataFrame(data) 
+print(ContinentDF)

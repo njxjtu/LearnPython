@@ -33,3 +33,12 @@ data = [{'a': 1, 'b': 2},{'a': 5, 'b': 10, 'c': 20}]
 df = pd.DataFrame(data, index=['first', 'second'])
 df = pd.DataFrame(data, index=['first', 'second'], columns=['a', 'b'])
 df = pd.DataFrame(data, index=['first', 'second'], columns=['a', 'b1'])
+
+# Create DataFrame - based on Dict of Series
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+df = pd.DataFrame(d)
+
+# Column Selection
+print(df['two'])
+print(df[['one','two']])

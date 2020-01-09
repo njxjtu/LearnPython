@@ -1,4 +1,4 @@
-Import pandas as pd
+import pandas as pd
 
 # Create empty series
 s = pd.Series()

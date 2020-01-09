@@ -53,6 +53,33 @@ print(df)
 del df['one']
 print(df)
 
-# using pop function using POP function
+# Delete column using pop function using POP function
 df.pop('two')
+print(df)
+
+# Delete column using drop function
+df.drop(['one'], axis=1, inplace=True)
+
+# Row select - label
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']), 
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+df = pd.DataFrame(d)
+print(df.loc['b'])
+
+# Row select - integer
+print(df.iloc[2])
+
+# Row select - slice rows / multiple rows
+print(df[2:4])
+
+# Add rows
+df = pd.DataFrame([[1, 2], [3, 4]], columns = ['a','b'])
+df2 = pd.DataFrame([[5, 6], [7, 8]], columns = ['a','b'])
+df = df.append(df2)
+
+# Delete rows using drop function
+print(df)
+print(df.drop(['a','d']))
+print(df)
+df.drop(['a','d'], inplace=True)
 print(df)

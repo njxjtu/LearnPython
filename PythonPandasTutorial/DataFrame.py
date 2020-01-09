@@ -42,3 +42,17 @@ df = pd.DataFrame(d)
 # Column Selection
 print(df['two'])
 print(df[['one','two']])
+
+# Add column
+df['three']=pd.Series([10,20,30],index=['a','b','c'])
+print(df)
+df['four']=df['one']+df['three']
+print(df)
+
+# Delete column using DEL function
+del df['one']
+print(df)
+
+# using pop function using POP function
+df.pop('two')
+print(df)

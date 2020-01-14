@@ -31,3 +31,13 @@ print(s[-3:])
 # Access data from Series with label
 print(s['a'])
 print(s[['a','c','d']]
+
+
+### Functions ###
+print(s.axes)
+print(s.empty)
+print(s.ndim)
+print(s.size)
+print(s.values)
+print(s.head(2))
+print(s.tail(2))

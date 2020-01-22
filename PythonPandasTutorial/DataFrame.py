@@ -83,3 +83,47 @@ print(df.drop(['a','d']))
 print(df)
 df.drop(['a','d'], inplace=True)
 print(df)
+
+# Basic Functionality
+s = pd.Series(np.random.randn(4))
+print(s)
+print(s.axes)
+print(s.empty)
+print(s.ndim)
+print(s.size)
+print(s.values)
+print(s.head(2))
+print(s.tail(2))
+
+dic = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Smith','Jack']),
+   'Age':pd.Series([25,26,25,23,30,29,23]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8])}
+
+df = pd.DataFrame(dic)
+print(df)
+print(df.T)
+print(df.axes)
+print(df.dtypes)
+print(df.empty)
+print(df.ndim)
+print(df.shape)
+print(df.size)
+print(df.values)
+print(df.head(2))
+print(df.tail(2))
+
+# Descriptive Statistics 
+dic = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Smith','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])
+}
+df = pd.DataFrame(dic)
+print(df)
+print(df.sum())
+print(df.sum(1))
+print(df.mean())
+print(df.std())
+print(df.describe())
+print(df.describe(include=['object']))
+print(df.describe(include=['all']))

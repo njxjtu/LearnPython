@@ -7,6 +7,8 @@ py -m pip install panda
 # Install excel support
 py -m pip install xlrd
 
+# Install scipy
+python -m pip install scipy
 '''
 Or install the Python/R platform: Anaconda which includes JupyterLab, JupyterNotebook, Spyder, Glueviz, Orange 3, RStudio, VS Code. 
 (I tried to install VS Code alone with Python extensions but the extension doesn't work due to error "Python: SelectInterpreter not found" error. 

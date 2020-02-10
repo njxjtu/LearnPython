@@ -34,4 +34,4 @@ print(grouped['Points'].agg(np.mean))
 print(grouped['Points'].agg([np.sum, np.mean, np.std]))
 score = lambda x: (x - x.mean()) / x.std()*10
 print(grouped.transform(score))
-print(df.groupby('Team').filter(lambda x: len(x) >= 3)) # filter the groups that meet the lambda criteria
+print(df.groupby('Team').filter(lambda x: len(x) >= 3)) # filter the groups that meet the lambda criteria 02/10/2020

@@ -8,3 +8,8 @@
 - Good books/resources: 
      * https://jakevdp.github.io/PythonDataScienceHandbook/index.html
      * https://www.tutorialspoint.com/python_pandas
+     * iq.opengenus.org
+     * medium.com
+     * https://jakevdp.github.io/PythonDataScienceHandbook/index.html
+     * https://www.anotherbookondatascience.com/
+     

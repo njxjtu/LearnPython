@@ -18,6 +18,12 @@ python -m pip install scikit-learn
 
 # Install TensorFlow
 python -m pip install virtualenv
+
+# Check python version
+python --version
+
+# Check pip version
+python -m pip -V
 '''
 Or install the Python/R platform: Anaconda which includes JupyterLab, JupyterNotebook, Spyder, Glueviz, Orange 3, RStudio, VS Code. 
 (I tried to install VS Code alone with Python extensions but the extension doesn't work due to error "Python: SelectInterpreter not found" error. 

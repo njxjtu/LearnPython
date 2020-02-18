@@ -13,5 +13,5 @@
      * https://jakevdp.github.io/PythonDataScienceHandbook/index.html
      * https://www.anotherbookondatascience.com/
      * Book "Think Stats" Probability and Statistics for Programmers by Allen B. Downey at http://greenteapress.com/thinkstats2/index.html
-     * Article: https://fivethirtyeight.com/features/science-isnt-broken/#part1 
+     * https://www.statisticshowto.datasciencecentral.com/  
      

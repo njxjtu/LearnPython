@@ -14,4 +14,6 @@
      * https://www.anotherbookondatascience.com/
      * Book "Think Stats" Probability and Statistics for Programmers by Allen B. Downey at http://greenteapress.com/thinkstats2/index.html
      * https://www.statisticshowto.datasciencecentral.com/  
+     * Wolfram MathWorld
+     * https://www.reddit.com/r/statistics/
      

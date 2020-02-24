@@ -64,8 +64,17 @@ def get_recession_start():
     NOTE: 
     A recession is defined as starting with two consecutive quarters of GDP decline, and ending with two consecutive quarters of GDP growth.
     '''
-    recessq = ""
     gdp = pd.read_excel('gdplev.xls', header=5, skiprows=2, usecols=[4,5,6])
     gdp.columns = ['quarter', 'gdp_current', 'gdp_chained']
-    return gdp
+    first = gdp.iloc[212]
+    second = gdp.iloc[213]
+    recessQuarter = ""
+    for index, row in gdp.iloc[214:].iterrows():
+      #print(row)
+      if row['gdp_chained'] < second['gdp_chained'] and second['gdp_chained'] < first['gdp_chained']:
+            recessQuarter = first['quarter']
+      else :
+            first = second
+            second = row
+    return recessQuarter
 print(get_recession_start())

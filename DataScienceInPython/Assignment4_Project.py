@@ -72,9 +72,58 @@ def get_recession_start():
     for index, row in gdp.iloc[214:].iterrows():
       #print(row)
       if row['gdp_chained'] < second['gdp_chained'] and second['gdp_chained'] < first['gdp_chained']:
-            recessQuarter = first['quarter']
+            return first['quarter']
       else :
             first = second
             second = row
     return recessQuarter
 print(get_recession_start())
+
+def get_recession_end():
+    '''Returns the year and quarter of the recession end time as a 
+    string value in a format such as 2005q3
+    
+    NOTE: A recession is defined as starting with two consecutive quarters of GDP decline, and ending with two consecutive quarters of GDP growth.
+    '''
+    gdp = pd.read_excel('gdplev.xls', header=5, skiprows=2, usecols=[4,5,6])
+    gdp.columns = ['quarter', 'gdp_current', 'gdp_chained']
+    first = gdp.iloc[212]
+    second = gdp.iloc[213]
+    recessQuarter = ""
+    for index, row in gdp.iloc[214:].iterrows():
+      #print(row)
+      if row['gdp_chained'] > second['gdp_chained'] and second['gdp_chained'] > first['gdp_chained'] and row['quarter']> get_recession_start():
+            return row['quarter']
+      else :
+            first = second
+            second = row
+    return recessQuarter
+
+print(get_recession_end())
+
+
+def get_recession_bottom():
+    '''Returns the year and quarter of the recession bottom time as a 
+    string value in a format such as 2005q3
+
+    NOTE: A recession bottom is the quarter within a recession which had the lowest GDP.
+    '''
+    
+    gdp = pd.read_excel('gdplev.xls', header=5, skiprows=2, usecols=[4,5,6])
+    gdp.columns = ['quarter', 'gdp_current', 'gdp_chained']
+    bottom = gdp.iloc[212]
+    start = get_recession_start()
+    end = get_recession_end()
+    if not start:
+      return ""
+    if not end:
+      return ""
+    for index, row in gdp.iloc[214:].iterrows():
+      if row['quarter'] == start or row['quarter'] <= end:
+            bottom = row
+    for index, row in gdp.iloc[214:].iterrows():
+      if row['quarter'] >= start and row['quarter'] <= end and row['gdp_chained'] < bottom['gdp_chained']:
+            bottom = row
+    return bottom['quarter']
+
+print(get_recession_bottom())

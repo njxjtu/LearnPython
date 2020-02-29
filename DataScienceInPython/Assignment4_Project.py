@@ -127,3 +127,38 @@ def get_recession_bottom():
     return bottom['quarter']
 
 print(get_recession_bottom())
+
+def convert_housing_data_to_quarters():
+    '''Converts the housing data to quarters and returns it as mean 
+    values in a dataframe. This dataframe should be a dataframe with
+    columns for 2000q1 through 2016q3, and should have a multi-index
+    in the shape of ["State","RegionName"].
+    
+    Note: Quarters are defined in the assignment description, they are
+    not arbitrary three month periods.
+    
+    The resulting dataframe should have 67 columns, and 10,730 rows.
+    '''
+    df = pd.read_csv("City_Zhvi_AllHomes.csv", encoding = "latin")
+    newdf = pd.DataFrame()
+    df_state_region = df.loc[:, ['State', 'RegionName']]
+    df_housing_price = df.loc[:, '2000-01':'2016-09']
+    newdf = df_state_region #pd.concat(df_state_region, df_housing_price, axis=1)
+    months = df_housing_price.columns
+    for (columnName, columnData) in df_housing_price.iteritems():
+      current_loc = months.get_loc(columnName)
+      if "-01" in columnName:
+            tempDF = df_housing_price.iloc[:, current_loc:current_loc+3]
+            newdf[columnName.replace('-01','q1')] = tempDF.mean(axis=1, skipna = True)
+      if "-04" in columnName:
+            tempDF = df_housing_price.iloc[:, current_loc:current_loc+3]
+            newdf[columnName.replace('-04','q2')] = tempDF.mean(axis=1, skipna = True)
+      if "-07" in columnName:
+            tempDF = df_housing_price.iloc[:, current_loc:current_loc+3]
+            newdf[columnName.replace('-07','q3')] = tempDF.mean(axis=1, skipna = True)
+      if "-10" in columnName:
+            tempDF = df_housing_price.iloc[:, current_loc:current_loc+3]
+            newdf[columnName.replace('-10','q4')] = tempDF.mean(axis=1, skipna = True)
+    return newdf
+  
+print(convert_housing_data_to_quarters())

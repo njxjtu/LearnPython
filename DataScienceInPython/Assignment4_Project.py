@@ -179,5 +179,11 @@ def run_ttest():
     value for better should be either "university town" or "non-university town"
     depending on which has a lower mean price ratio (which is equivilent to a
     reduced market loss).'''
-    
-    return "ANSWER"
+    housing_data_quarters = convert_housing_data_to_quarters()
+    recession_start = get_recession_start()
+    recession_bottom = get_recession_bottom()
+    quarters = housing_data_quarters.columns
+    print('housing_data_quarters',houshousing_data_quarters, 'recession_start',recession_start, 'recession_bottom', recession_bottom )
+    return houshousing_data_quarters
+
+print(run_ttest)

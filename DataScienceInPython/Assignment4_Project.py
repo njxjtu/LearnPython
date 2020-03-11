@@ -26,7 +26,7 @@ states = {'OH': 'Ohio', 'KY': 'Kentucky', 'AS': 'American Samoa', 'NV': 'Nevada'
 print(states)
 f = open('university_towns.txt', 'r')
 file_contents = f.read()
-print(file_contents)
+#print(file_contents)
 f.close()
 
 def get_list_of_university_towns():
@@ -55,7 +55,7 @@ def get_list_of_university_towns():
     
     return df
 
-print(get_list_of_university_towns())
+#print(get_list_of_university_towns())
 
 def get_recession_start():
     '''Returns the year and quarter of the recession start time as a 
@@ -77,7 +77,7 @@ def get_recession_start():
             first = second
             second = row
     return recessQuarter
-print(get_recession_start())
+#print(get_recession_start())
 
 def get_recession_end():
     '''Returns the year and quarter of the recession end time as a 
@@ -99,7 +99,7 @@ def get_recession_end():
             second = row
     return recessQuarter
 
-print(get_recession_end())
+#print(get_recession_end())
 
 
 def get_recession_bottom():
@@ -126,7 +126,7 @@ def get_recession_bottom():
             bottom = row
     return bottom['quarter']
 
-print(get_recession_bottom())
+#print(get_recession_bottom())
 
 def convert_housing_data_to_quarters():
     '''Converts the housing data to quarters and returns it as mean 
@@ -163,7 +163,7 @@ def convert_housing_data_to_quarters():
     newdf.set_index(['State', 'RegionName'], inplace=True)
     return newdf
   
-print(convert_housing_data_to_quarters())
+#print(convert_housing_data_to_quarters())
 
 def run_ttest():
     '''First creates new data showing the decline or growth of housing prices
@@ -179,11 +179,48 @@ def run_ttest():
     value for better should be either "university town" or "non-university town"
     depending on which has a lower mean price ratio (which is equivilent to a
     reduced market loss).'''
+    states = {'OH': 'Ohio', 'KY': 'Kentucky', 'AS': 'American Samoa', 'NV': 'Nevada', 'WY': 'Wyoming', 'NA': 'National', 'AL': 'Alabama', 'MD': 'Maryland', 'AK': 'Alaska', 'UT': 'Utah', 'OR': 'Oregon', 'MT': 'Montana', 'IL': 'Illinois', 'TN': 'Tennessee', 'DC': 'District of Columbia', 'VT': 'Vermont', 'ID': 'Idaho', 'AR': 'Arkansas', 'ME': 'Maine', 'WA': 'Washington', 'HI': 'Hawaii', 'WI': 'Wisconsin', 'MI': 'Michigan', 'IN': 'Indiana', 'NJ': 'New Jersey', 'AZ': 'Arizona', 'GU': 'Guam', 'MS': 'Mississippi', 'PR': 'Puerto Rico', 'NC': 'North Carolina', 'TX': 'Texas', 'SD': 'South Dakota', 'MP': 'Northern Mariana Islands', 'IA': 'Iowa', 'MO': 'Missouri', 'CT': 'Connecticut', 'WV': 'West Virginia', 'SC': 'South Carolina', 'LA': 'Louisiana', 'KS': 'Kansas', 'NY': 'New York', 'NE': 'Nebraska', 'OK': 'Oklahoma', 'FL': 'Florida', 'CA': 'California', 'CO': 'Colorado', 'PA': 'Pennsylvania', 'DE': 'Delaware', 'NM': 'New Mexico', 'RI': 'Rhode Island', 'MN': 'Minnesota', 'VI': 'Virgin Islands', 'NH': 'New Hampshire', 'MA': 'Massachusetts', 'GA': 'Georgia', 'ND': 'North Dakota', 'VA': 'Virginia'}
     housing_data_quarters = convert_housing_data_to_quarters()
+    housing_data_quarters = housing_data_quarters.reset_index()
+    print('housing_data_quarters')
+    print(housing_data_quarters)
+    housing_data_quarters['StateAcronyms'] = housing_data_quarters['State'].map(states)
     recession_start = get_recession_start()
     recession_bottom = get_recession_bottom()
     quarters = housing_data_quarters.columns
-    print('housing_data_quarters',houshousing_data_quarters, 'recession_start',recession_start, 'recession_bottom', recession_bottom )
-    return houshousing_data_quarters
+    
+    print('housing_data_quarters')
+    print(housing_data_quarters)
+    print('recession_start')
+    print(recession_start)
+    print('recession_bottom')
+    print(recession_bottom)
 
-print(run_ttest)
+    univ_towns = get_list_of_university_towns()
+    univ_towns['univ_town'] = True
+
+    print('univ_towns')
+    print(univ_towns)
+
+    df = pd.merge(housing_data_quarters, univ_towns, how="left", left_on=['StateAcronyms', 'RegionName'], right_on=['State', 'RegionName'])
+    df['univ_town'].fillna(False, inplace=True)
+    df['price_ratio']=df[recession_start]/df[recession_bottom]
+    univ_town_ratio = df[df['univ_town']==True]['price_ratio']
+    non_univ_town_ratio = df[df['univ_town']==False]['price_ratio']
+    ttest_result = ttest_ind(univ_town_ratio, non_univ_town_ratio, nan_policy='omit')
+
+    p=ttest_result[1]
+
+    if p<0.01:
+      different = True 
+    else:
+      different = False
+
+    if univ_town_ratio.mean()<non_univ_town_ratio.mean():
+      better = "university town"
+    else :
+      better = "non-university town"
+    return (different, p, better)
+
+
+print(run_ttest())

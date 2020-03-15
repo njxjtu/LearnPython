@@ -16,4 +16,6 @@
      * https://www.statisticshowto.datasciencecentral.com/  
      * Wolfram MathWorld
      * https://www.reddit.com/r/statistics/
+     * Darkhorse Analytics
+     * Book: Edward Tufte, The Visual Display of Quantitative Information
      

@@ -18,4 +18,5 @@
      * https://www.reddit.com/r/statistics/
      * Darkhorse Analytics
      * Book: Edward Tufte, The Visual Display of Quantitative Information
+     * Crowd sourcing services, such as CrowdFlower and Amazon Mechanical Turk
      

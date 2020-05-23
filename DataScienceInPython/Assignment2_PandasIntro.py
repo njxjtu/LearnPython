@@ -34,8 +34,16 @@ def answer_zero():
 # about the assignment formats, check out the discussion forums for any FAQs
 answer_zero() 
 
+'''
+Question 1
+Which country has won the most gold medals in summer games?
+This function should return a single string value.
+'''
+def answer_one():
+    return df['Gold'].idxmax()
+answer_one()
 
-# Which country had the biggest difference between their summer and winter gold medal counts? This function should return a single string value.
+# Question 2: Which country had the biggest difference between their summer and winter gold medal counts? This function should return a single string value.
 def answer_two():
     return (df['Gold']-df['Gold.1']).abs().idxmax()
 answer_two()

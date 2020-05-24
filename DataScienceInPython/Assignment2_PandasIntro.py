@@ -88,15 +88,15 @@ answer_five()
 # This function should return a list of string values.
 
 def answer_six():
-    df2 = census_df.sort_values(by=['STNAME', 'CENSUS2010POP'], ascending=False).groupby(census_df['STNAME']).head(3).groupby(census_df['STNAME'])['CENSUS2010POP'].sum().reset_index()
-    return df2.sort_values(by='CENSUS2010POP', ascending=False).head(3)
-answer_six()
+    df2=census_df[census_df['SUMLEV']==50]
+    df2=df2[['STNAME','CTYNAME','CENSUS2010POP']].sort_values(by=['STNAME', 'CENSUS2010POP'], ascending=[True,False])
+    df2=df2.groupby(df2['STNAME']).head(3).groupby(df2['STNAME'])['CENSUS2010POP'].sum()
+    #print(df2.nlargest(3).index)
+    #print(type(df2.nlargest(3).index.tolist()))
+    return df2.nlargest(3).index.tolist()
 
 #  Answer:
-#       STNAME	CENSUS2010POP
-# 4	    California	50167874
-# 43	Texas	31606159
-# 32	New York	24113524
+#  ['California', 'Texas', 'Illinois']
 
 
 #Question 7
@@ -105,11 +105,13 @@ answer_six()
 #This function should return a single string value.
 
 def answer_seven():
-    census_df['maxpop'] = census_df[['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].max(axis=1)
-    census_df['minpop'] = census_df[['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].min(axis=1)
-    census_df['chgpop'] = census_df['maxpop']-census_df['minpop']
-    return census_df.sort_values(by='chgpop',ascending=False).head(1)['CTYNAME']
-answer_seven()
+    df2=census_df[census_df['SUMLEV']==50]
+    df2['maxpop'] = df2[['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].max(axis=1)
+    df2['minpop'] = df2[['POPESTIMATE2010','POPESTIMATE2011','POPESTIMATE2012','POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].min(axis=1)
+    df2['chgpop'] = df2['maxpop']-df2['minpop']
+    return df2.sort_values(by='chgpop',ascending=False).iloc[0,6]
+
+# Answer: 'Harris County'
 
 #Question 8
 #In this datafile, the United States is broken up into four regions using the "REGION" column.

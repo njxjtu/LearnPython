@@ -46,54 +46,68 @@ This function should return a DataFrame with 20 columns and 15 entries.
 import pandas as pd
 import numpy as np
 
-energy = pd.read_excel('Energy Indicators.xls', header=17,skipfooter=38,usecols=[1,2,3,4,5],na_values='...')
-energy = energy.iloc[:, 1:]
-energy.columns = ['Country', 'Energy Supply', 'Energy Supply per Capita', '% Renewable']
-energy['Energy Supply'] *= 1000000
-energy.replace('Republic of Korea','South Korea', inplace=True)
-energy.replace('United States of America','United States', inplace=True)
-energy.replace('United Kingdom of Great Britain and Northern Ireland','United Kingdom', inplace=True)
-energy.replace('China, Hong Kong Special Administrative Region', 'Hong Kong', inplace=True)
-
-df_obj = energy.select_dtypes(['object'])
-energy.Country = energy.Country.str.replace("\(.*\)","").str.replace('[0-9]','')
-print("-------------- Energy --------------")
-print(energy)
-##
-# GDP = pd.read_csv('world_bank.csv', index_col=0, skiprows=4)
-GDP = pd.read_csv('world_bank.csv', skiprows=4)
-GDP.replace('Korea, Rep.','South Korea', inplace=True)
-GDP.replace('Iran, Islamic Rep.','Iran', inplace=True)
-GDP.replace('Hong Kong SAR, China','Hong Kong', inplace=True)
-print("-------------- GDP --------------")
-GDP = GDP.iloc[:,[0,50,51,52,53,54,55,56,57,58,59]]
-GDP.rename(columns={'Country Name':'Country'}, inplace= True)
-GDP.set_index('Country')
-print(GDP)
-#
-ScimEn = pd.read_excel('scimagojr.xlsx')
-print("-------------- ScimEn --------------")
-ScimEn2 = ScimEn
-ScimEn = ScimEn.iloc[0:15,:]
-ScimEn.set_index('Country')
-print(ScimEn)
-
-final_df = ScimEn.merge(GDP,left_on='Country', right_on='Country', how='left')
-final_df = final_df.merge(energy, left_on='Country', right_on='Country', how='left')
-print("-------------- Final Result : --------------")
-final_df2 = final_df.set_index('Country')
-print(final_df2)
-print(final_df2.columns)
-print("-------------- Test Value: --------------")
-print(final_df.loc[final_df['Country'] == 'China'])
+def answer_one():
+    energy = pd.read_excel('Energy Indicators.xls', header=9, skipfooter=38, skiprows=range(10,18),na_values='...')
+    energy.columns = ['Country', 'Energy Supply', 'Energy Supply per Capita', '% Renewable']
+    energy['Energy Supply'] *= 1000000
+    energy['Energy Supply'].replace('...',np.NaN, inplace=True)
+    energy.Country = energy.Country.str.replace("\(.*\)","").str.replace('[0-9]','').str.strip()
+    di = {"Republic of Korea": "South Korea",
+    "United States of America": "United States",
+    "United Kingdom of Great Britain and Northern Ireland": "United Kingdom",
+    "China, Hong Kong Special Administrative Region": "Hong Kong"}
+    energy.replace({"Country": di},inplace = True)
+    energy.set_index('Country', inplace = True)
+    energy.reset_index(inplace = True)
+    ###
+    GDP = pd.read_csv('world_bank.csv', skiprows=4)
+    GDP.replace('Korea, Rep.','South Korea', inplace=True)
+    GDP.replace('Iran, Islamic Rep.','Iran', inplace=True)
+    GDP.replace('Hong Kong SAR, China','Hong Kong', inplace=True)
+    GDP = GDP.iloc[:,[0,50,51,52,53,54,55,56,57,58,59]]
+    GDP.rename(columns={'Country Name':'Country'}, inplace= True)
+    GDP.set_index('Country')
+    ###
+    ScimEn = pd.read_excel('scimagojr-3.xlsx')
+    ScimEn = ScimEn.iloc[0:15,1:]
+    ###
+    final_df = ScimEn.merge(GDP,left_on='Country', right_on='Country')
+    final_df = final_df.merge(energy, left_on='Country', right_on='Country')
+    return final_df
 '''
 Question 2
 The previous question joined three datasets then reduced this to just the top 15 entries. When you joined the datasets, but before you reduced this to the top 15 items, how many entries did you lose?
 This function should return a single number.
 '''
-final_sum = ScimEn2.merge(GDP,left_on='Country', right_on='Country')
-final_sum = final_sum.merge(energy, left_on='Country', right_on='Country')
-print(len(final_sum)-len(final_df2))
+def answer_two():
+    energy = pd.read_excel('Energy Indicators.xls', header=9, skipfooter=38, skiprows=range(10,18),na_values='...')
+    energy.columns = ['Country', 'Energy Supply', 'Energy Supply per Capita', '% Renewable']
+    energy['Energy Supply'] *= 1000000
+    energy.Country = energy.Country.str.replace("\(.*\)","").str.replace('[0-9]','').str.strip()
+    di = {"Republic of Korea": "South Korea",
+    "United States of America": "United States",
+    "United Kingdom of Great Britain and Northern Ireland": "United Kingdom",
+    "China, Hong Kong Special Administrative Region": "Hong Kong"}
+    energy.replace({"Country": di},inplace = True)
+    energy.set_index('Country', inplace = True)
+    energy.reset_index(inplace = True)
+    ###
+    GDP = pd.read_csv('world_bank.csv', skiprows=4)
+    GDP.replace('Korea, Rep.','South Korea', inplace=True)
+    GDP.replace('Iran, Islamic Rep.','Iran', inplace=True)
+    GDP.replace('Hong Kong SAR, China','Hong Kong', inplace=True)
+    GDP = GDP.iloc[:,[0,50,51,52,53,54,55,56,57,58,59]]
+    GDP.rename(columns={'Country Name':'Country'}, inplace= True)
+    GDP.set_index('Country')
+    ###
+    ScimEn = pd.read_excel('scimagojr-3.xlsx')
+    #ScimEn = ScimEn.iloc[0:15,1:]
+    ###
+    inner_df = ScimEn.merge(GDP,left_on='Country', right_on='Country')
+    inner_df = inner_df.merge(energy, left_on='Country', right_on='Country')
+    outer_df = ScimEn.merge(GDP,left_on='Country', right_on='Country', how='outer')
+    outer_df = outer_df.merge(energy, left_on='Country', right_on='Country', how='outer')
+    return len(outer_df)-len(inner_df)
 '''
 Question 3 
 What is the average GDP over the last 10 years for each country? (exclude missing values from this calculation.)

@@ -125,12 +125,13 @@ Question 4 (6.6%)
 By how much had the GDP changed over the 10 year span for the country with the 6th largest average GDP?
 This function should return a single number.
 '''
-
-final_df2['avg'] = final_df2[['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013', '2014', '2015']].mean(axis=1)
-final_df2_sorted = final_df2.sort_values('avg', ascending=False)
-final_df2_sorted['deltaGDP'] = final_df2_sorted['2015']-final_df2_sorted['2006']
-print(final_df2_sorted)
-print(final_df2_sorted.iloc[5,21])
+def answer_four():
+    Top15 = answer_one()
+    Top15['avg'] = Top15[['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013', '2014', '2015']].mean(axis=1)
+    Top15 = Top15.sort_values('avg', ascending=False)
+    #Top15['deltaGDP'] = Top15['2015']-Top15['2006']
+    #print(Top15.iloc[5,21])
+    return Top15.iloc[5]['2015']-Top15.iloc[5]['2006']
 '''
 Question 5 (6.6%)
 What is the mean Energy Supply per Capita?

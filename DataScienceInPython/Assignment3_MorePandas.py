@@ -113,9 +113,13 @@ Question 3
 What is the average GDP over the last 10 years for each country? (exclude missing values from this calculation.)
 This function should return a Series named avgGDP with 15 countries and their average GDP sorted in descending order.
 '''
-avg = final_df2[['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013', '2014', '2015']].mean(axis=1)
-avg = avg.sort_values(ascending = False)
-print(avg)
+def answer_three():
+    Top15 = answer_one()
+    Top15.set_index('Country', inplace=True)
+    avgGDP = Top15[['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013', '2014', '2015']].mean(axis=1)
+    avgGDP = avgGDP.sort_values(ascending = False)
+    return avgGDP
+#selecting a column of a dataframe will return a series
 '''
 Question 4 (6.6%)
 By how much had the GDP changed over the 10 year span for the country with the 6th largest average GDP?

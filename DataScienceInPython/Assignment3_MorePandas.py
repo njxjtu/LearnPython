@@ -145,36 +145,39 @@ Question 6 (6.6%)
 What country has the maximum % Renewable and what is the percentage?
 This function should return a tuple with the name of the country and the percentage.
 '''
-print("Question 6")
-print("=====final_df2======")
-print(final_df2)
-maxCountry = final_df2['% Renewable'].idxmax()
-tempdf = final_df2.loc[final_df2['% Renewable'].idxmax()]
-print([maxCountry,tempdf.loc['% Renewable']])
+def answer_six():
+    Top15 = answer_one()
+    maxCountry = Top15['% Renewable'].idxmax()
+    #tempdf = final_df2.loc[final_df2['% Renewable'].idxmax()]
+    #print([maxCountry,tempdf.loc['% Renewable']])
+    return (Top15.iloc[maxCountry]['Country'],Top15.iloc[maxCountry]['% Renewable'])
 '''
 Question 7 (6.6%)
 Create a new column that is the ratio of Self-Citations to Total Citations. What is the maximum value for this new column, and what country has the highest ratio?
 This function should return a tuple with the name of the country and the ratio.
 '''
 print("Question 7")
-final_df2['self-total'] = final_df2['Self-citations']/final_df2['Citations']
-print(final_df2)
-idmax_self_total = final_df2['self-total'].idxmax()
-max_self_total = final_df2['self-total'].max()
-print([idmax_self_total,max_self_total])
+def answer_seven():
+    Top15 = answer_one()
+    Top15['self-total'] = Top15['Self-citations']/Top15['Citations']
+    idmax_self_total = Top15['self-total'].idxmax()
+    #max_self_total = final_df2['self-total'].max()
+    #print([idmax_self_total,max_self_total])
+    return (Top15.iloc[idmax_self_total]['Country'],Top15.iloc[idmax_self_total]['self-total'])
 '''
 Question 8 (6.6%)
 Create a column that estimates the population using Energy Supply and Energy Supply per capita. What is the third most populous country according to this estimate?
 This function should return a single string value.
 '''
 print("Question 8")
-final_df2['estimatedPop'] = final_df2['Energy Supply']/final_df2['Energy Supply per Capita']
-final_df2_sorted_est = final_df2.sort_values('estimatedPop', ascending=False)
-print("final_df2_sorted_est")
-print(final_df2_sorted_est)
-ThirdCounrty = final_df2_sorted_est.index[2]
-ThirdEstimatedPop = final_df2_sorted_est.iloc[2,22]
-print([ThirdCounrty,ThirdEstimatedPop])
+def answer_eight():
+    Top15 = answer_one()
+    Top15['estimatedPop'] = Top15['Energy Supply']/Top15['Energy Supply per Capita']
+    Top15 = Top15.sort_values('estimatedPop', ascending=False)
+    #ThirdCounrty = final_df2_sorted_est.index[2]
+    #ThirdEstimatedPop = final_df2_sorted_est.iloc[2,22]
+    #print([ThirdCounrty,ThirdEstimatedPop])
+    return Top15
 '''
 Question 9 (6.6%)
 Create a column that estimates the number of citable documents per person. What is the correlation between the number of citable documents per capita and 

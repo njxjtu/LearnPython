@@ -205,11 +205,14 @@ Question 10 (6.6%)
 Create a new column with a 1 if the country's % Renewable value is at or above the median for all countries in the top 15, and a 0 if the country's % Renewable value is below the median.
 This function should return a series named HighRenew whose index is the country name sorted in ascending order of rank.
 '''
-print(final_df2.columns)
-median_renewable=final_df2['% Renewable'].median()
-print(median_renewable)
-final_df2['HighRenew'] = np.where(final_df2['% Renewable']>=median_renewable,1,0)
-print(final_df2)
+def answer_ten():
+    Top15 = answer_one()
+    Top15.set_index('Country',inplace=True)
+    print(Top15.columns)
+    median_renewable=Top15['% Renewable'].median()
+    #print(median_renewable)
+    Top15['HighRenew'] = np.where(Top15['% Renewable']>=median_renewable,1,0)
+    return Top15['HighRenew']
 '''
 Question 11 (6.6%)
 Use the following dictionary to group the Countries by Continent, then create a dateframe that displays the sample size (the number of countries in each continent bin), and the sum, mean, and std deviation for the estimated population of each country.

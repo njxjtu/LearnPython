@@ -185,10 +185,21 @@ the energy supply per capita? Use the .corr() method, (Pearson's correlation).
 This function should return a single number.
 (Optional: Use the built-in function plot9() to visualize the relationship between Energy Supply per Capita vs. Citable docs per Capita)
 '''
-print("Question 9")
-final_df2['estimatedCDPP'] = final_df2['Citable documents']/final_df2['estimatedPop']
-print(final_df2)
-print(final_df2[['Citations per document','Energy Supply per Capita']].corr(method ='pearson'))
+def answer_nine():
+    Top15 = answer_one()
+    Top15['estimatedPop'] = Top15['Energy Supply']/Top15['Energy Supply per Capita']
+    Top15['estimatedCDPP'] = Top15['Citable documents']/Top15['estimatedPop']
+    cor = Top15[['Citations per document','Energy Supply per Capita']].corr(method ='pearson')
+    return cor.iloc[0,1]
+
+def plot9():
+    import matplotlib as plt
+    %matplotlib inline
+    
+    Top15 = answer_one()
+    Top15['PopEst'] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
+    Top15['Citable docs per Capita'] = Top15['Citable documents'] / Top15['PopEst']
+    Top15.plot(x='Citable docs per Capita', y='Energy Supply per Capita', kind='scatter', xlim=[0, 0.0006])
 '''
 Question 10 (6.6%)
 Create a new column with a 1 if the country's % Renewable value is at or above the median for all countries in the top 15, and a 0 if the country's % Renewable value is below the median.

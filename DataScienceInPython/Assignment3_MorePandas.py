@@ -234,7 +234,9 @@ ContinentDict  = {'China':'Asia',
                   'Brazil':'South America'}
 This function should return a DataFrame with index named Continent ['Asia', 'Australia', 'Europe', 'North America', 'South America'] and columns ['size', 'sum', 'mean', 'std']
 '''
-ContinentDict  = {'China':'Asia', 
+def answer_eleven():
+    Top15 = answer_one()
+    ContinentDict  = {'China':'Asia', 
                   'United States':'North America', 
                   'Japan':'Asia', 
                   'United Kingdom':'Europe', 
@@ -249,7 +251,23 @@ ContinentDict  = {'China':'Asia',
                   'Iran':'Asia',
                   'Australia':'Australia', 
                   'Brazil':'South America'}
-print(ContinentDict)
-data = {'Continent':['Asia', 'Australia', 'Europe', 'North America', 'South America'], 'size':[5, 1, 6, 2, 1]}
-ContinentDF = pd.DataFrame(data) 
-print(ContinentDF)
+    Top15["Continent"]=Top15['Country'].map(ContinentDict)
+    Top15['estimatedPop'] = Top15['Energy Supply']/Top15['Energy Supply per Capita']
+    Top15=Top15.groupby("Continent")
+    #data = {'Continent':['Asia', 'Australia', 'Europe', 'North America', 'South America'], 'size':[5, 1, 6, 2, 1]}
+    #ContinentDF = pd.DataFrame(data) 
+    #print(ContinentDF)
+    idxlist = ['Asia', 'Australia', 'Europe', 'North America', 'South America']
+    clnlist = ['size', 'sum', 'mean', 'std']
+    df = pd.DataFrame(index=idxlist, columns=clnlist)
+    df['size']=Top15.size()
+    df['sum']=Top15['estimatedPop'].sum()
+    df['mean']=Top15['estimatedPop'].mean()
+    df['std']=Top15['estimatedPop'].std()
+    return df
+answer_eleven()
+'''
+Question 12 (6.6%)
+Cut % Renewable into 5 bins. Group Top15 by the Continent, as well as these new % Renewable bins. How many countries are in each of these groups?
+This function should return a Series with a MultiIndex of Continent, then the bins for % Renewable. Do not include groups with no countries.
+'''

@@ -271,3 +271,30 @@ Question 12 (6.6%)
 Cut % Renewable into 5 bins. Group Top15 by the Continent, as well as these new % Renewable bins. How many countries are in each of these groups?
 This function should return a Series with a MultiIndex of Continent, then the bins for % Renewable. Do not include groups with no countries.
 '''
+def answer_twelve():
+    Top15 = answer_one()
+    ContinentDict  = {'China':'Asia', 
+                  'United States':'North America', 
+                  'Japan':'Asia', 
+                  'United Kingdom':'Europe', 
+                  'Russian Federation':'Europe', 
+                  'Canada':'North America', 
+                  'Germany':'Europe', 
+                  'India':'Asia',
+                  'France':'Europe', 
+                  'South Korea':'Asia', 
+                  'Italy':'Europe', 
+                  'Spain':'Europe', 
+                  'Iran':'Asia',
+                  'Australia':'Australia', 
+                  'Brazil':'South America'}
+    Top15['bins'] = pd.cut(Top15['% Renewable'],5)
+    Top15["Continent"]=Top15['Country'].map(ContinentDict)
+    Top15 = Top15.groupby(['Continent', 'bins'])
+    return Top15.size()
+'''
+Question 13 (6.6%)
+Convert the Population Estimate series to a string with thousands separator (using commas). Do not round the results.
+e.g. 317615384.61538464 -> 317,615,384.61538464
+This function should return a Series PopEst whose index is the country name and whose values are the population estimate string.
+'''

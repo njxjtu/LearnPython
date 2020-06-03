@@ -73,7 +73,8 @@ def answer_one():
     ###
     final_df = ScimEn.merge(GDP,left_on='Country', right_on='Country')
     final_df = final_df.merge(energy, left_on='Country', right_on='Country')
-    return final_df
+    return final_df.set_index('Country')
+answer_one()
 '''
 Question 2
 The previous question joined three datasets then reduced this to just the top 15 entries. When you joined the datasets, but before you reduced this to the top 15 items, how many entries did you lose?
@@ -108,6 +109,7 @@ def answer_two():
     outer_df = ScimEn.merge(GDP,left_on='Country', right_on='Country', how='outer')
     outer_df = outer_df.merge(energy, left_on='Country', right_on='Country', how='outer')
     return len(outer_df)-len(inner_df)
+answer_two()
 '''
 Question 3 
 What is the average GDP over the last 10 years for each country? (exclude missing values from this calculation.)
@@ -115,10 +117,11 @@ This function should return a Series named avgGDP with 15 countries and their av
 '''
 def answer_three():
     Top15 = answer_one()
-    Top15.set_index('Country', inplace=True)
+    #Top15.set_index('Country', inplace=True)
     avgGDP = Top15[['2006', '2007', '2008', '2009','2010', '2011', '2012', '2013', '2014', '2015']].mean(axis=1)
     avgGDP = avgGDP.sort_values(ascending = False)
     return avgGDP
+answer_three()
 #selecting a column of a dataframe will return a series
 '''
 Question 4 (6.6%)
@@ -132,14 +135,16 @@ def answer_four():
     #Top15['deltaGDP'] = Top15['2015']-Top15['2006']
     #print(Top15.iloc[5,21])
     return Top15.iloc[5]['2015']-Top15.iloc[5]['2006']
+answer_four()
 '''
 Question 5 (6.6%)
 What is the mean Energy Supply per Capita?
 This function should return a single number.
 '''
-print("Question 5")
-print(final_df2['Energy Supply per Capita'].mean())
-print(final_df2.describe())
+def answer_five():
+    Top15 = answer_one()
+    return Top15['Energy Supply per Capita'].mean()
+answer_five()
 '''
 Question 6 (6.6%)
 What country has the maximum % Renewable and what is the percentage?
@@ -150,20 +155,21 @@ def answer_six():
     maxCountry = Top15['% Renewable'].idxmax()
     #tempdf = final_df2.loc[final_df2['% Renewable'].idxmax()]
     #print([maxCountry,tempdf.loc['% Renewable']])
-    return (Top15.iloc[maxCountry]['Country'],Top15.iloc[maxCountry]['% Renewable'])
+    return (maxCountry,Top15.loc[maxCountry]['% Renewable'])
+answer_six()
 '''
 Question 7 (6.6%)
 Create a new column that is the ratio of Self-Citations to Total Citations. What is the maximum value for this new column, and what country has the highest ratio?
 This function should return a tuple with the name of the country and the ratio.
 '''
-print("Question 7")
 def answer_seven():
     Top15 = answer_one()
     Top15['self-total'] = Top15['Self-citations']/Top15['Citations']
     idmax_self_total = Top15['self-total'].idxmax()
     #max_self_total = final_df2['self-total'].max()
     #print([idmax_self_total,max_self_total])
-    return (Top15.iloc[idmax_self_total]['Country'],Top15.iloc[idmax_self_total]['self-total'])
+    return (idmax_self_total,Top15.loc[idmax_self_total]['self-total'])
+answer_seven()
 '''
 Question 8 (6.6%)
 Create a column that estimates the population using Energy Supply and Energy Supply per capita. What is the third most populous country according to this estimate?
@@ -177,7 +183,8 @@ def answer_eight():
     #ThirdCounrty = final_df2_sorted_est.index[2]
     #ThirdEstimatedPop = final_df2_sorted_est.iloc[2,22]
     #print([ThirdCounrty,ThirdEstimatedPop])
-    return Top15
+    return Top15.iloc[2].name
+answer_eight()
 '''
 Question 9 (6.6%)
 Create a column that estimates the number of citable documents per person. What is the correlation between the number of citable documents per capita and 
@@ -191,6 +198,7 @@ def answer_nine():
     Top15['estimatedCDPP'] = Top15['Citable documents']/Top15['estimatedPop']
     cor = Top15[['Citations per document','Energy Supply per Capita']].corr(method ='pearson')
     return cor.iloc[0,1]
+answer_nine()
 
 def plot9():
     import matplotlib as plt
@@ -207,12 +215,13 @@ This function should return a series named HighRenew whose index is the country 
 '''
 def answer_ten():
     Top15 = answer_one()
-    Top15.set_index('Country',inplace=True)
-    print(Top15.columns)
+    #Top15.set_index('Country',inplace=True)
+    #print(Top15.columns)
     median_renewable=Top15['% Renewable'].median()
     #print(median_renewable)
     Top15['HighRenew'] = np.where(Top15['% Renewable']>=median_renewable,1,0)
     return Top15['HighRenew']
+answer_ten()
 '''
 Question 11 (6.6%)
 Use the following dictionary to group the Countries by Continent, then create a dateframe that displays the sample size (the number of countries in each continent bin), and the sum, mean, and std deviation for the estimated population of each country.
@@ -251,6 +260,7 @@ def answer_eleven():
                   'Iran':'Asia',
                   'Australia':'Australia', 
                   'Brazil':'South America'}
+    Top15.reset_index(inplace=True)
     Top15["Continent"]=Top15['Country'].map(ContinentDict)
     Top15['estimatedPop'] = Top15['Energy Supply']/Top15['Energy Supply per Capita']
     Top15=Top15.groupby("Continent")
@@ -288,10 +298,12 @@ def answer_twelve():
                   'Iran':'Asia',
                   'Australia':'Australia', 
                   'Brazil':'South America'}
+    Top15.reset_index(inplace=True)
     Top15['bins'] = pd.cut(Top15['% Renewable'],5)
     Top15["Continent"]=Top15['Country'].map(ContinentDict)
     Top15 = Top15.groupby(['Continent', 'bins'])
     return Top15.size()
+answer_twelve()
 '''
 Question 13 (6.6%)
 Convert the Population Estimate series to a string with thousands separator (using commas). Do not round the results.
@@ -302,6 +314,7 @@ def answer_thirteen():
     Top15 = answer_one()
     Top15["estimatePop"] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
     return Top15['estimatePop'].apply(lambda x: '{0:,}'.format(x))
+answer_thirteen()
 '''
 Optional
 Use the built in function plot_optional() to see an example visualization.

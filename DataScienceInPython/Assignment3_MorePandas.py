@@ -69,7 +69,7 @@ def answer_one():
     GDP.set_index('Country')
     ###
     ScimEn = pd.read_excel('scimagojr-3.xlsx')
-    ScimEn = ScimEn.iloc[0:15,1:]
+    ScimEn = ScimEn.iloc[0:15]
     ###
     final_df = ScimEn.merge(GDP,left_on='Country', right_on='Country')
     final_df = final_df.merge(energy, left_on='Country', right_on='Country')

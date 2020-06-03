@@ -194,10 +194,9 @@ This function should return a single number.
 '''
 def answer_nine():
     Top15 = answer_one()
-    Top15['estimatedPop'] = Top15['Energy Supply']/Top15['Energy Supply per Capita']
-    Top15['estimatedCDPP'] = Top15['Citable documents']/Top15['estimatedPop']
-    cor = Top15[['Citations per document','Energy Supply per Capita']].corr(method ='pearson')
-    return cor.iloc[0,1]
+    Top15["Population"] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
+    Top15["Citable docs per Capita"] = Top15["Citable documents"] / Top15["Population"]
+    return Top15["Citable docs per Capita"].corr(Top15['Energy Supply per Capita'])
 answer_nine()
 
 def plot9():

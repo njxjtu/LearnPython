@@ -81,13 +81,15 @@ def get_recession_start():
     '''
     gdp = pd.read_excel('gdplev.xls', header=5, skiprows=2, usecols=[4,5,6])
     gdp.columns = ['quarter', 'gdp_current', 'gdp_chained']
+    #print(gdp[220:])
     first = gdp.iloc[212]
     second = gdp.iloc[213]
     recessQuarter = ""
     for index, row in gdp.iloc[214:].iterrows():
       #print(row)
       if row['gdp_chained'] < second['gdp_chained'] and second['gdp_chained'] < first['gdp_chained']:
-            return first['quarter']
+            recessQuarter = second['quarter']
+            break
       else :
             first = second
             second = row

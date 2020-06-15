@@ -193,11 +193,13 @@ def convert_housing_data_to_quarters():
     
     The resulting dataframe should have 67 columns, and 10,730 rows.
     '''
-    df = pd.read_csv("City_Zhvi_AllHomes.csv", encoding = "latin")
+     df = pd.read_csv("City_Zhvi_AllHomes.csv", encoding = "latin")
     newdf = pd.DataFrame()
+    #print(df)
     df_state_region = df.loc[:, ['State', 'RegionName']]
-    df_housing_price = df.loc[:, '2000-01':'2016-09']
+    df_housing_price = df.loc[:, '2000-01':'2016-08']
     newdf = df_state_region #pd.concat(df_state_region, df_housing_price, axis=1)
+    #print(newdf)
     months = df_housing_price.columns
     for (columnName, columnData) in df_housing_price.iteritems():
       current_loc = months.get_loc(columnName)
@@ -213,7 +215,8 @@ def convert_housing_data_to_quarters():
       if "-10" in columnName:
             tempDF = df_housing_price.iloc[:, current_loc:current_loc+3]
             newdf[columnName.replace('-10','q4')] = tempDF.mean(axis=1, skipna = True)
-
+    #print(newdf)
+    newdf['State'] = newdf['State'].replace(states)
     newdf.set_index(['State', 'RegionName'], inplace=True)
     return newdf
   

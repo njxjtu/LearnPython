@@ -70,6 +70,43 @@ def get_list_of_university_towns():
                 
     return df
 
+
+''' This is a solution from online that matches the correct answer. However I don't know why my solution doesn't match the answer
+import re
+    import pandas as pd
+
+    # Open the file, read the lines, and close the file
+    fo = open('university_towns.txt', "r")
+    lines = fo.readlines()
+    fo.close()
+
+    # remove empty lines
+    new_lines = []
+    for line in lines:
+        if not re.match(r'^\s*$', line):
+            new_lines.append(line)
+
+    lines = new_lines.copy()
+
+    # Strip the white space at the beginning and end of each line
+    for index, line in enumerate(lines):
+        lines[index] = line.strip()
+
+        # Loop through the lines to form a dataframe
+    df_result = pd.DataFrame(columns=('State', 'RegionName'))
+    i = 0  # counter for each new line in the dataframe
+    state_string = ""  # Empty initial state string
+    region_string = ""  # Empty initial region string
+    for line in lines:
+        if '[edit]' in line:
+            state_string = line.replace('[edit]', "")
+        else:
+            region_string = re.sub(r' \(.*', "", line)
+            df_result.loc[i] = [state_string, region_string]
+            i += 1
+            
+    return df_result
+ '''
 #print(get_list_of_university_towns())
 
 def get_recession_start():

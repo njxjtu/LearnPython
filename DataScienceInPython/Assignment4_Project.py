@@ -239,25 +239,26 @@ def run_ttest():
     states = {'OH': 'Ohio', 'KY': 'Kentucky', 'AS': 'American Samoa', 'NV': 'Nevada', 'WY': 'Wyoming', 'NA': 'National', 'AL': 'Alabama', 'MD': 'Maryland', 'AK': 'Alaska', 'UT': 'Utah', 'OR': 'Oregon', 'MT': 'Montana', 'IL': 'Illinois', 'TN': 'Tennessee', 'DC': 'District of Columbia', 'VT': 'Vermont', 'ID': 'Idaho', 'AR': 'Arkansas', 'ME': 'Maine', 'WA': 'Washington', 'HI': 'Hawaii', 'WI': 'Wisconsin', 'MI': 'Michigan', 'IN': 'Indiana', 'NJ': 'New Jersey', 'AZ': 'Arizona', 'GU': 'Guam', 'MS': 'Mississippi', 'PR': 'Puerto Rico', 'NC': 'North Carolina', 'TX': 'Texas', 'SD': 'South Dakota', 'MP': 'Northern Mariana Islands', 'IA': 'Iowa', 'MO': 'Missouri', 'CT': 'Connecticut', 'WV': 'West Virginia', 'SC': 'South Carolina', 'LA': 'Louisiana', 'KS': 'Kansas', 'NY': 'New York', 'NE': 'Nebraska', 'OK': 'Oklahoma', 'FL': 'Florida', 'CA': 'California', 'CO': 'Colorado', 'PA': 'Pennsylvania', 'DE': 'Delaware', 'NM': 'New Mexico', 'RI': 'Rhode Island', 'MN': 'Minnesota', 'VI': 'Virgin Islands', 'NH': 'New Hampshire', 'MA': 'Massachusetts', 'GA': 'Georgia', 'ND': 'North Dakota', 'VA': 'Virginia'}
     housing_data_quarters = convert_housing_data_to_quarters()
     housing_data_quarters = housing_data_quarters.reset_index()
-    print('housing_data_quarters')
-    print(housing_data_quarters)
-    housing_data_quarters['StateAcronyms'] = housing_data_quarters['State'].map(states)
+    #print('housing_data_quarters')
+    #print(housing_data_quarters)
+    #housing_data_quarters['StateAcronyms'] = housing_data_quarters['State'].map(states)
+    housing_data_quarters['StateAcronyms'] = housing_data_quarters['State']
     recession_start = get_recession_start()
     recession_bottom = get_recession_bottom()
     quarters = housing_data_quarters.columns
     
-    print('housing_data_quarters')
-    print(housing_data_quarters)
-    print('recession_start')
-    print(recession_start)
-    print('recession_bottom')
-    print(recession_bottom)
+    #print('housing_data_quarters')
+    #print(housing_data_quarters)
+    #print('recession_start')
+    #print(recession_start)
+    #print('recession_bottom')
+    #print(recession_bottom)
 
     univ_towns = get_list_of_university_towns()
     univ_towns['univ_town'] = True
 
-    print('univ_towns')
-    print(univ_towns)
+    #print('univ_towns')
+    #print(univ_towns)
 
     df = pd.merge(housing_data_quarters, univ_towns, how="left", left_on=['StateAcronyms', 'RegionName'], right_on=['State', 'RegionName'])
     df['univ_town'].fillna(False, inplace=True)
@@ -278,6 +279,9 @@ def run_ttest():
     else :
       better = "non-university town"
     return (different, p, better)
+
+
+run_ttest()
 
 
 print(run_ttest())

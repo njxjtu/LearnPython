@@ -43,7 +43,7 @@ def get_list_of_university_towns():
     
     f = open('university_towns.txt', 'r')
     file_contents = f.readlines()
-    #print(file_contents)
+    #print(len(file_contents))
     f.close()
     df = pd.DataFrame(columns=['State', 'RegionName'])
     idx = 0
@@ -52,11 +52,22 @@ def get_list_of_university_towns():
             if '[edit]' in line:
                 tempstate = line.split('[')[0]
                 tempstate = tempstate.replace('\n','').strip()
-            elif ' (' in line:
-                temptown = line.split(' (')[0]
-                temptown = temptown.replace('\n','').strip()
-                df.loc[idx]=[tempstate, temptown]
-                idx += 1
+            else:
+                if ':' in line:
+                    temptown = line.split(':')[0]
+                    temptown = temptown.replace('\n','').strip()
+                    df.loc[idx]=[tempstate, temptown]
+                    idx += 1
+                elif '(' in line:
+                    temptown = line.split('(')[0]
+                    temptown = temptown.replace('\n','').strip()
+                    df.loc[idx]=[tempstate, temptown]
+                    idx += 1
+                else:
+                    temptown = line.strip()
+                    df.loc[idx]=[tempstate, temptown]
+                    idx += 1
+                
     return df
 
 #print(get_list_of_university_towns())

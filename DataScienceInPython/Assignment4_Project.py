@@ -40,19 +40,23 @@ def get_list_of_university_towns():
     1. For "State", removing characters from "[" to the end.
     2. For "RegionName", when applicable, removing every character from " (" to the end.
     3. Depending on how you read the data, you may need to remove newline character '\n'. '''
+    
+    f = open('university_towns.txt', 'r')
+    file_contents = f.readlines()
+    #print(file_contents)
+    f.close()
     df = pd.DataFrame(columns=['State', 'RegionName'])
     idx = 0
-    with open('university_towns.txt') as file:
-      for line in file:
+    #with open('university_towns.txt') as file:
+    for line in file_contents:
             if '[edit]' in line:
-                  tempstate = line.replace('[edit]','')
-                  tempstate = tempstate.replace('\n','')
+                tempstate = line.split('[')[0]
+                tempstate = tempstate.replace('\n','').strip()
             elif ' (' in line:
-                  temptown = line.split(' (')[0]
-                  temptown = temptown.replace('\n','')
-                  df.loc[idx]=[tempstate, temptown]
-                  idx += 1
-    
+                temptown = line.split(' (')[0]
+                temptown = temptown.replace('\n','').strip()
+                df.loc[idx]=[tempstate, temptown]
+                idx += 1
     return df
 
 #print(get_list_of_university_towns())

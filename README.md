@@ -21,4 +21,5 @@
      * Crowd sourcing services, such as CrowdFlower and Amazon Mechanical Turk
      * Publication: Bateman, S., Mandryk, R. L., Gutwin, C., Genest, A., McDine, D., & Brooks, C. (2010, April). Useful Junk?:       The Effects of Visual Embellishment on Comprehension and Memorability of Charts. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 2573-2582). ACM.
      * Book: Alberto Cairo's book, The Truthful Art 
+     * Ten Simple Rules for Better Figures: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833
      
